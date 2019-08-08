@@ -1,0 +1,8 @@
+node_modules
+esm
+lib
+dist
+.cache
+.env.local
+resources
+lerna-debug.log

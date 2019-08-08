@@ -1,0 +1,17 @@
+{
+  "name": "main",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "author": "ekoneko <arzusyume@gmail.com>",
+  "main": "lib/main.js",
+  "scripts": {
+    "start": "NODE_ENV=development electron ./start.js",
+    "build": "tsc --outDir lib"
+  },
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "fs-extra": "^8.1.0",
+    "log4js": "^4.5.1"
+  }
+}
