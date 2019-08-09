@@ -28,7 +28,7 @@ export class Logger {
     categories: {
       default: {
         appenders: ['out', 'persist'],
-        level: process.env.NODE_ENV === 'development' ? 'all' : 'info',
+        level: process.env.NODE_ENV === 'development' ? 'all' : 'warn',
       },
     },
   }

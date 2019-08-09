@@ -1,0 +1,48 @@
+.image-preview-wrapper {
+  position: relative;
+}
+.icon-close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  opacity: 0;
+  z-index: 100;
+  &:hover {
+    opacity: 1;
+  }
+  & > img {
+    width: 30px;
+  }
+  transition: opacity 0.3s;
+}
+
+.icon-prev {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  margin-top: -14px;
+  & > img {
+    width: 28px;
+  }
+  z-index: 100;
+}
+
+.icon-next {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -14px;
+  & > img {
+    width: 28px;
+  }
+  z-index: 100;
+}
+
+.mouse-move {
+  .icon-close {
+    opacity: 0.8;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

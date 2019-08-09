@@ -5,20 +5,22 @@
   "description": "",
   "author": "ekoneko <arzusyume@gmail.com>",
   "scripts": {
-    "start": "parcel src/index.html --no-hmr",
+    "start": "parcel serve src/index.html --no-hmr --no-autoinstall",
     "build": "npm run clear && npm run build:web && npm run build:preload",
     "clear": "rm -rf dist",
-    "build:web": "parcel build src/index.html --no-source-maps --public-url=.",
-    "build:preload": "parcel build src/preload.ts --no-source-maps --target electron --public-url=.",
+    "build:web": "parcel build src/index.html --no-content-hash --no-source-maps --public-url=.",
+    "build:preload": "parcel build src/preload.ts --no-content-hash --no-source-maps --target electron --public-url=.",
     "release": "cp -R dist/* ../../resources"
   },
   "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "lodash": "^4.17.15",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.3"
+    "parcel-bundler": "^1.12.3",
+    "sass": "^1.22.9"
   },
   "alias": {
     "electron": null

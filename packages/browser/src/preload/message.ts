@@ -30,7 +30,7 @@ interface IpcResponse<R> {
  */
 export function sendMessage<P>(
   channel: string,
-  data: any,
+  data: any = void 0,
   options: MessageOptions = {},
 ): Promise<P> {
   const id = messageId++

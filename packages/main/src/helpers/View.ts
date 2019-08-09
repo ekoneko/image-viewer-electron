@@ -21,7 +21,7 @@ export class View {
       ...options,
       webPreferences: {
         nodeIntegration: false,
-        webSecurity: true,
+        webSecurity: false,
         minimumFontSize: 12,
         defaultEncoding: 'utf-8',
         preload: preloadJs,
