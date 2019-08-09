@@ -1,30 +1,21 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider, Stage, Toolbar, Shortcuts } from '@ekoneko/image-player'
+import { Image } from '@ekoneko/image-player/esm/types/Image'
 
-const imageList = [
-  {
-    src: 'http://attach.bbs.miui.com/forum/201209/14/193232tqoez8te5emgmf5q.jpg',
-  },
-  {
-    src: 'http://image.pbs.org/video-assets/iZOsUzY-asset-mezzanine-16x9-8YZsCRv.jpg',
-  },
-]
-
-render(
-  <Provider imageList={imageList}>
-    <Shortcuts />
-    <div className="image-preview-wrapper">
-      <div className="stage-wrapper">
-        <Stage />
+function renderPlayer(imageList: Image[]) {
+  render(
+    <Provider imageList={imageList}>
+      <Shortcuts />
+      <div className="image-preview-wrapper">
+        <div className="stage-wrapper">
+          <Stage />
+        </div>
       </div>
-      <div className="toolbar-wrapper">
-        <Toolbar />
-      </div>
-    </div>
-  </Provider>,
-  document.getElementById('root'),
-)
+    </Provider>,
+    document.getElementById('root'),
+  )
+}
 
 // prevent default browser gestures
 document.body.addEventListener(
@@ -37,3 +28,10 @@ document.body.addEventListener(
   },
   { passive: false },
 )
+
+window.addEventListener('load', async () => {
+  const imageList = await window.electronHelper.sendMessage<string[]>('ready', void 0, {
+    needReply: true,
+  })
+  renderPlayer(imageList.map((item) => ({ src: item })))
+})

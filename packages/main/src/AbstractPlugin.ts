@@ -23,7 +23,7 @@ export class AbstractPlugin implements LifeCycle {
 
   public secondInstance() {}
 
-  protected getCore() {
+  protected getBootstrap() {
     return this.bootstrap
   }
 }

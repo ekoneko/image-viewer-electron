@@ -11,17 +11,14 @@ export class Resource {
     this.$bootstrap.logger.info(`Resource path is ${this.resourcePath}`)
   }
 
-  public getResourcePath() {
-    return this.resourcePath
+  public getResourcePath(filePath = '.') {
+    return path.join(this.resourcePath, filePath)
   }
 
   private resolveResourcePath() {
     if (process.env.NODE_ENV === 'development') {
-      this.resourcePath = path.join(
-        require.resolve('electron/package.json'),
-        '../../..',
-        'resources',
-      )
+      const rootPath = path.join(require.resolve('electron/package.json'), '../../..')
+      this.resourcePath = path.join(rootPath, 'packages/browser/dist')
     } else {
       // TODO: production env
     }

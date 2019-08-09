@@ -11,7 +11,7 @@ export class FilePlugin extends AbstractPlugin {
   private logger: Logger
 
   beforeReady() {
-    this.logger = this.getCore().logger
+    this.logger = this.getBootstrap().logger
     app.on('open-file', this.handleOpenFile)
   }
 

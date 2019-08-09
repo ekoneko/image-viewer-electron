@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "lerna run start --scope=main --stream",
-    "start:browser": "lerna run start --scope=browser --stream"
+    "start": "lerna run start --scope=main --stream --",
+    "start:browser": "lerna run start --scope=browser --stream --"
   },
   "keywords": [],
   "author": "",

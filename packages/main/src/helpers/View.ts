@@ -11,8 +11,8 @@ export class View {
   }
 
   public createWindow(options: Electron.BrowserWindowConstructorOptions) {
-    // const resource = this.$bootstrap.resource
-    // const preloadJs = path.join(resource.getResourcePath(), 'preload.js')
+    const resource = this.$bootstrap.resource
+    const preloadJs = resource.getResourcePath('preload.js')
     const composeOptions = {
       autoHideMenuBar: true,
       backgroundColor: '#fff',
@@ -24,7 +24,7 @@ export class View {
         webSecurity: true,
         minimumFontSize: 12,
         defaultEncoding: 'utf-8',
-        // preload: preloadJs,
+        preload: preloadJs,
         ...options.webPreferences,
       },
     }
