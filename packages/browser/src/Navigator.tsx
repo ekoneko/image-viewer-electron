@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavigateHandlers } from '@ekoneko/image-player/esm/stateProviders/NavigateProvider'
+import { NavigateHandlers } from '@ekoneko/image-viewer/esm/stateProviders/NavigateProvider'
 import ICON_PREV from '../assets/prev.svg'
 import ICON_NEXT from '../assets/next.svg'
 
