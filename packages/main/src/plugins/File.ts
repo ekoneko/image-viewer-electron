@@ -94,6 +94,14 @@ export class FilePlugin extends AbstractPlugin {
     }
     const buffer = readChunk.sync(filePath, 0, fileType.minimumBytes)
     const type = fileType(buffer)
+    // svg check
+    if (
+      !type &&
+      path.extname(filePath) === '.svg' &&
+      buffer.slice(0, 4).toString('utf-8') === '<svg'
+    ) {
+      return true
+    }
     return type && type.mime.startsWith('image/')
   }
 }
