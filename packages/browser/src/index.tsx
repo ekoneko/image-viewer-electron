@@ -5,11 +5,12 @@ import throttle from 'lodash/throttle'
 import { Image } from '@ekoneko/image-player/esm/types/Image'
 import { KeyDown } from '@ekoneko/image-player/esm/Shortcuts/KeyDown'
 import { NavigateProvider } from '@ekoneko/image-player/esm/stateProviders/NavigateProvider'
+import { ImagePlayerData } from 'main/src/plugins/ImagePlayer'
 import { Navigator } from './Navigator'
 
-function renderPlayer(imageList: Image[]) {
+function renderPlayer(imageList: Image[], index = 0) {
   render(
-    <Provider imageList={imageList}>
+    <Provider imageList={imageList} defaultIndex={index}>
       <Shortcuts>
         <KeyDown shortKey="escape" callback={handleEscape} />
       </Shortcuts>
@@ -33,9 +34,13 @@ function handleEscape() {
 }
 
 window.addEventListener('load', async () => {
-  const imageList = await window.electronHelper.sendMessage<string[]>('ready', void 0, {
-    needReply: true,
-  })
+  const { imageList, index } = await window.electronHelper.sendMessage<ImagePlayerData>(
+    'ready',
+    void 0,
+    {
+      needReply: true,
+    },
+  )
   renderPlayer(
     imageList.map((item) => {
       if (item.startsWith('/')) {
@@ -43,6 +48,7 @@ window.addEventListener('load', async () => {
       }
       return { src: item }
     }),
+    index,
   )
 
   document.querySelector('#close').addEventListener('click', handleEscape)

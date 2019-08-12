@@ -19,6 +19,7 @@
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
+    "main": "^1.0.0",
     "parcel-bundler": "^1.12.3",
     "sass": "^1.22.9"
   },

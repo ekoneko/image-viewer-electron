@@ -2,17 +2,25 @@ import { AbstractPlugin } from '../AbstractPlugin'
 import { screen, app } from 'electron'
 import { IpcCallback } from '../helpers/IpcManager'
 
+export interface ImagePlayerData {
+  imageList: string[]
+  index: number
+}
+
 export class ImagePlayerPlugin extends AbstractPlugin {
   private imagePlayerWindow: Electron.BrowserWindow
-  private filePaths: string[] = []
+  private imagePlayerData: ImagePlayerData
 
   public ready() {
     this.getBootstrap().ipcManager.add('ready', this.handleBrowserReady)
     this.getBootstrap().ipcManager.add('exit', this.handleBrowserExit)
   }
 
-  public openFile(filePaths: string[]) {
-    this.filePaths = filePaths
+  public openFile(filePaths: string[], index = 0) {
+    this.imagePlayerData = {
+      imageList: filePaths,
+      index: index,
+    }
     this.createImagePlayerWindow()
   }
 
@@ -38,12 +46,11 @@ export class ImagePlayerPlugin extends AbstractPlugin {
         devTools: process.env.NODE_ENV === 'development',
       },
     })
-    this.imagePlayerWindow.loadURL('http://localhost:1234')
-    // this.imagePlayerWindow.loadFile(indexFile)
+    this.imagePlayerWindow.loadFile(indexFile)
   }
 
-  private handleBrowserReady: IpcCallback<void, string[]> = (ev, options, reply) => {
-    reply(this.filePaths)
+  private handleBrowserReady: IpcCallback<void, ImagePlayerData> = (ev, options, reply) => {
+    reply(this.imagePlayerData)
   }
 
   private handleBrowserExit: IpcCallback<void, string[]> = (ev, options, reply) => {

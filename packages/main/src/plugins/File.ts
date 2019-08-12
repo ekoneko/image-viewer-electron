@@ -14,6 +14,7 @@ const getStat = promisify(fs.stat)
 
 export class FilePlugin extends AbstractPlugin {
   private beforeReadyStack: string[] = []
+  private selectedImage: string = ''
   private isReady = false
   private logger: Logger
 
@@ -48,8 +49,12 @@ export class FilePlugin extends AbstractPlugin {
   }
 
   private openFile = async (images: string[]) => {
-    this.logger.info('open images', images)
-    this.getDepend<ImagePlayerPlugin>('imagePlayer').openFile(images)
+    const index = this.selectedImage
+      ? Math.max(0, images.findIndex((img) => img === this.selectedImage))
+      : 0
+    console.log(this.selectedImage)
+    this.logger.info('open images:\n', images, '\nindex:', index)
+    this.getDepend<ImagePlayerPlugin>('imagePlayer').openFile(images, index)
   }
 
   private getFileFromArgs(argv: string[]): string | void {
@@ -69,8 +74,9 @@ export class FilePlugin extends AbstractPlugin {
     if (!stat.isFile() || !(await this.isImage(filePath, false))) {
       return [] as string[]
     }
-
-    return [filePath]
+    const dirPath = path.dirname(filePath)
+    this.selectedImage = filePath
+    return this.extractImagesFromDirectory(dirPath)
   }
 
   private async extractImagesFromDirectory(dirPath: string) {
